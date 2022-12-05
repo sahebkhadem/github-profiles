@@ -8,6 +8,8 @@
 	--color-button-accent: #eeeeee;
 	--color-button-accent-hover: #bebebe;
 	--color-button-accent-active: #777777;
+	--color-border: #a7a7a7;
+	--color-border-active: #eeeeee;
 }
 
 /* Box sizing rules */
@@ -116,14 +118,94 @@ picture {
 	margin-left: 0.5rem;
 }
 
+/* Main content */
 .App main {
 	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2rem 0;
 	background-color: var(--color-fill);
+}
+
+/* Search form */
+.App main form {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.App main form .img {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 5rem;
+	color: var(--color-text-base);
+	margin-bottom: 2rem;
+}
+
+.App main form .input-group {
+	display: flex;
+}
+
+.App main form .input-group input {
+	border: none;
+	outline: none;
+	padding: 0.5rem 1rem;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-size: 1.1rem;
+	border: 2px var(--color-border) solid;
+	border-right: 0;
+	border-radius: 50px 0 0 50px;
+	background-color: transparent;
+	color: var(--color-text-base);
+	caret-color: var(--color-text-base);
+	transition: background-color 0.1s linear, border-color 0.1s linear;
+}
+.App main form .input-group input:hover {
+	transition: background-color 0.1s linear;
+	background-color: var(--color-fill-elevated);
+}
+.App main form .input-group input:focus {
+	transition: background-color 0.1s linear, border-color 0.1s linear;
+	background-color: transparent;
+	border-color: var(--color-border-active);
+}
+
+.App main form .input-group button {
+	border: none;
+	outline: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5rem 1.5rem;
+	font-size: 1.1rem;
+	border-radius: 0 50px 50px 0;
+	cursor: pointer;
+	background-color: var(--color-button-accent);
+	color: var(--color-text-inverted);
+	transition: background-color 0.1s linear;
+}
+.App main form .input-group button:hover {
+	transition: background-color 0.1s linear;
+	background-color: var(--color-button-accent-hover);
+}
+.App main form .input-group button:active {
+	transition: background-color 0.1s linear;
+	background-color: var(--color-button-accent-active);
+}
+.App main form .input-group button:disabled {
+	background-color: var(--color-button-accent-active);
+	cursor: default;
 }
 
 /* Media Queries */
 @media only screen and (max-width: 400px) {
 	.App nav .logo span {
 		display: none;
+	}
+
+	.App main form {
+		padding: 0.5rem;
 	}
 }

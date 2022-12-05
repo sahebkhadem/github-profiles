@@ -1,10 +1,18 @@
-import { FaGithub, FaSun } from "react-icons/fa";
+import { useState } from "react";
+import { FaGithub, FaSun, FaSearch } from "react-icons/fa";
 
 function App() {
+	const [status, setStatus] = useState("idle");
+
+	const submitHandler = (event) => {
+		event.preventDefault();
+		setStatus("pending");
+	};
+
 	return (
 		<div className="App">
 			<nav>
-				<a href="#" className="logo">
+				<a href="" className="logo">
 					<FaGithub />
 					<span>GitHub Profiles</span>
 				</a>
@@ -20,7 +28,20 @@ function App() {
 					</button>
 				</div>
 			</nav>
-			<main></main>
+
+			<main>
+				<form onSubmit={submitHandler}>
+					<div className="img">
+						<FaGithub />
+					</div>
+					<div className="input-group">
+						<input type="text" placeholder="Username..." />
+						<button type="submit" disabled={status === "pending"}>
+							<FaSearch />
+						</button>
+					</div>
+				</form>
+			</main>
 		</div>
 	);
 }
