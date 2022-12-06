@@ -35,7 +35,7 @@ function App() {
 						<FaGithub />
 					</div>
 					<div className="input-group">
-						<input type="text" placeholder="Username..." />
+						<input type="text" placeholder="Username..." disabled={status === "pending"} />
 						<button type="submit" disabled={status === "pending"}>
 							<FaSearch />
 						</button>

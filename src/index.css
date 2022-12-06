@@ -171,6 +171,9 @@ picture {
 	background-color: transparent;
 	border-color: var(--color-border-active);
 }
+.App main form .input-group input:disabled {
+	background-color: var(--color-fill-elevated);
+}
 
 .App main form .input-group button {
 	border: none;
