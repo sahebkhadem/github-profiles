@@ -1,13 +1,36 @@
-import { useState } from "react";
-import { FaGithub, FaSun, FaSearch } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaGithub, FaSun, FaMoon, FaSearch } from "react-icons/fa";
+
+// Hooks
+import useTheme from "./useTheme";
 
 function App() {
 	const [status, setStatus] = useState("idle");
+	const [theme, setTheme] = useState("dark");
 
 	const submitHandler = (event) => {
 		event.preventDefault();
 		setStatus("pending");
 	};
+
+	const toggleTheme = () => {
+		if (theme === "dark") {
+			setTheme("light");
+			localStorage.setItem("theme", "light");
+			return;
+		}
+
+		setTheme("dark");
+		localStorage.setItem("theme", "dark");
+	};
+
+	useEffect(() => {
+		if (localStorage.getItem("theme")) {
+			setTheme(localStorage.getItem("theme"));
+		}
+	}, []);
+
+	useTheme(theme);
 
 	return (
 		<div className="App">
@@ -23,8 +46,11 @@ function App() {
 						<span>Repo</span>
 					</a>
 
-					<button title="Switch to light theme">
-						<FaSun />
+					<button
+						title={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+						onClick={toggleTheme}
+					>
+						{theme === "dark" ? <FaSun /> : <FaMoon />}
 					</button>
 				</div>
 			</nav>
