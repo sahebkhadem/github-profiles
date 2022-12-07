@@ -6,11 +6,12 @@ import useTheme from "./useTheme";
 
 function App() {
 	const [status, setStatus] = useState("idle");
+	const [userData, setUserData] = useState({});
 	const [theme, setTheme] = useState("dark");
 
 	const submitHandler = (event) => {
 		event.preventDefault();
-		setStatus("pending");
+		fetchUserData(event.target.username.value);
 	};
 
 	const toggleTheme = () => {
@@ -22,6 +23,35 @@ function App() {
 
 		setTheme("dark");
 		localStorage.setItem("theme", "dark");
+	};
+
+	const fetchUserData = async (username) => {
+		try {
+			setStatus("pending");
+
+			const response = await fetch(`https://api.github.com/users/${username}`);
+			const follwoersResponse = await fetch(`https://api.github.com/users/${username}/followers`);
+			const reposResponse = await fetch(`https://api.github.com/users/${username}/repos`);
+
+			const { name, login, avatar_url } = await response.json();
+			const followers = await follwoersResponse.json();
+			const repos = await reposResponse.json();
+
+			repos.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+
+			setUserData({
+				name,
+				login,
+				avatar_url,
+				followers: followers.length,
+				repos: repos.length,
+				newest: repos.slice(0, 4)
+			});
+
+			setStatus("fulfilled");
+		} catch (error) {
+			setStatus("rejected");
+		}
 	};
 
 	useEffect(() => {
@@ -61,7 +91,7 @@ function App() {
 						<FaGithub />
 					</div>
 					<div className="input-group">
-						<input type="text" placeholder="Username..." disabled={status === "pending"} />
+						<input type="text" name="username" placeholder="Username..." disabled={status === "pending"} />
 						<button type="submit" disabled={status === "pending"}>
 							<FaSearch />
 						</button>
