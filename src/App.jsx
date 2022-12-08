@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaGithub, FaSun, FaMoon, FaSearch } from "react-icons/fa";
+import { FaGithub, FaSun, FaMoon, FaSearch, FaExclamationCircle } from "react-icons/fa";
 
 // Hooks
 import useTheme from "./useTheme";
@@ -11,6 +11,11 @@ function App() {
 
 	const submitHandler = (event) => {
 		event.preventDefault();
+
+		if (!event.target.username.value) {
+			return;
+		}
+
 		fetchUserData(event.target.username.value);
 	};
 
@@ -50,6 +55,7 @@ function App() {
 
 			setStatus("fulfilled");
 		} catch (error) {
+			console.log(error);
 			setStatus("rejected");
 		}
 	};
@@ -91,13 +97,51 @@ function App() {
 						<FaGithub />
 					</div>
 					<div className="input-group">
-						<input type="text" name="username" placeholder="Username..." disabled={status === "pending"} />
+						<input
+							type="text"
+							name="username"
+							placeholder="Username..."
+							disabled={status === "pending"}
+							autoComplete="off"
+						/>
 						<button type="submit" disabled={status === "pending"}>
 							<FaSearch />
 						</button>
 					</div>
 				</form>
-				<div className="spinner"></div>
+
+				{status === "pending" && <div className="spinner"></div>}
+
+				{status === "rejected" && (
+					<div className="error">
+						<FaExclamationCircle />
+						<p>User not found</p>
+					</div>
+				)}
+
+				{status === "fulfilled" && (
+					<div className="data">
+						<div className="avatar-container">
+							<img src={userData.avatar_url} alt="User's avatar" />
+						</div>
+
+						<div className="user-info">
+							<span>Name: {userData.name}</span>
+							<span>Username: {userData.login}</span>
+							<span>Followers: {userData.followers}</span>
+							<span>Repos: {userData.repos}</span>
+						</div>
+
+						<div className="newest-repos">
+							<span>Newest repos:</span>
+							{userData.newest.map((repo) => (
+								<a href={`https://github.com/${repo.owner.login}/${repo.name}`} key={repo.id}>
+									{repo.name}
+								</a>
+							))}
+						</div>
+					</div>
+				)}
 			</main>
 		</div>
 	);
