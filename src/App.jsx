@@ -97,6 +97,7 @@ function App() {
 						</button>
 					</div>
 				</form>
+				<div className="spinner"></div>
 			</main>
 		</div>
 	);
