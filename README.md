@@ -2,7 +2,7 @@
 
 A simple app to retrieve a GitHub user's information by entering their username.
 
-Live version: ([https://duckduckgo.com](https://sk-githubprofiles.netlify.app/))
+Live version: https://sk-githubprofiles.netlify.app/
 
 ## Features
 
