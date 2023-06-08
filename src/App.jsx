@@ -77,7 +77,7 @@ function App() {
 				</a>
 
 				<div className="nav-items">
-					<a href="https://github.com/TakaoIsDaBest/github-profiles" target={"_blank"}>
+					<a href="https://github.com/sahebkhadem/github-profiles" target="_blank">
 						<FaGithub />
 						<span>Repo</span>
 					</a>
