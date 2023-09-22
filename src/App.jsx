@@ -65,8 +65,8 @@ function App() {
 
 			setStatus("fulfilled");
 		} catch (error) {
-			console.log(error);
 			setStatus("rejected");
+			window.alert("Sorry. Something went wrong.");
 		}
 	};
 
