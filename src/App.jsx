@@ -95,7 +95,7 @@ function App() {
 	return (
 		<div className="App">
 			<nav>
-				<a href="" className="logo">
+				<a href="/" className="logo">
 					<FaGithub />
 					<span>GitHub Profiles</span>
 				</a>
