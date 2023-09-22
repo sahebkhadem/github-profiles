@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { FaGithub, FaSun, FaMoon, FaSearch, FaExclamationCircle } from "react-icons/fa";
+import {
+	FaGithub,
+	FaSun,
+	FaMoon,
+	FaSearch,
+	FaExclamationCircle
+} from "react-icons/fa";
 
 // Hooks
 import useTheme from "./useTheme";
@@ -35,8 +41,12 @@ function App() {
 			setStatus("pending");
 
 			const response = await fetch(`https://api.github.com/users/${username}`);
-			const follwoersResponse = await fetch(`https://api.github.com/users/${username}/followers`);
-			const reposResponse = await fetch(`https://api.github.com/users/${username}/repos`);
+			const follwoersResponse = await fetch(
+				`https://api.github.com/users/${username}/followers`
+			);
+			const reposResponse = await fetch(
+				`https://api.github.com/users/${username}/repos`
+			);
 
 			const { name, login, avatar_url } = await response.json();
 			const followers = await follwoersResponse.json();
@@ -77,13 +87,21 @@ function App() {
 				</a>
 
 				<div className="nav-items">
-					<a href="https://github.com/sahebkhadem/github-profiles" target="_blank">
+					<a
+						href="https://github.com/sahebkhadem/github-profiles"
+						target="_blank"
+					>
 						<FaGithub />
 						<span>Repo</span>
 					</a>
 
 					<button
-						title={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+						title={
+							theme === "dark"
+								? "Switch to light theme"
+								: "Switch to dark theme"
+						}
+						aria-label="Toggle theme"
 						onClick={toggleTheme}
 					>
 						{theme === "dark" ? <FaSun /> : <FaMoon />}
@@ -104,7 +122,11 @@ function App() {
 							disabled={status === "pending"}
 							autoComplete="off"
 						/>
-						<button type="submit" disabled={status === "pending"}>
+						<button
+							type="submit"
+							disabled={status === "pending"}
+							aria-label="Search"
+						>
 							<FaSearch />
 						</button>
 					</div>
@@ -135,7 +157,10 @@ function App() {
 						<div className="newest-repos">
 							<span>Newest repos:</span>
 							{userData.newest.map((repo) => (
-								<a href={`https://github.com/${repo.owner.login}/${repo.name}`} key={repo.id}>
+								<a
+									href={`https://github.com/${repo.owner.login}/${repo.name}`}
+									key={repo.id}
+								>
 									{repo.name}
 								</a>
 							))}
