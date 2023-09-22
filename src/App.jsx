@@ -14,6 +14,7 @@ function App() {
 	const [status, setStatus] = useState("idle");
 	const [userData, setUserData] = useState({});
 	const [theme, setTheme] = useState("dark");
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const submitHandler = (event) => {
 		event.preventDefault();
@@ -42,6 +43,17 @@ function App() {
 
 			// Get user data
 			const response = await fetch(`https://api.github.com/users/${username}`);
+
+			// Throw error if user does not exist
+			if (response.status == 404) {
+				throw new Error("User does not exist");
+			}
+
+			// Handle other errors
+			if (!response.ok) {
+				throw new Error("Something went wrong");
+			}
+
 			const follwoersResponse = await fetch(
 				`https://api.github.com/users/${username}/followers`
 			);
@@ -68,7 +80,7 @@ function App() {
 			setStatus("fulfilled");
 		} catch (error) {
 			setStatus("rejected");
-			window.alert("Sorry. Something went wrong.");
+			setErrorMessage(error.message);
 		}
 	};
 
@@ -140,7 +152,7 @@ function App() {
 				{status === "rejected" && (
 					<div className="error">
 						<FaExclamationCircle />
-						<p>User not found</p>
+						<p>{errorMessage}</p>
 					</div>
 				)}
 
