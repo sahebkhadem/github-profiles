@@ -40,6 +40,7 @@ function App() {
 		try {
 			setStatus("pending");
 
+			// Get user data
 			const response = await fetch(`https://api.github.com/users/${username}`);
 			const follwoersResponse = await fetch(
 				`https://api.github.com/users/${username}/followers`
@@ -52,6 +53,7 @@ function App() {
 			const followers = await follwoersResponse.json();
 			const repos = await reposResponse.json();
 
+			// Sort the repositories chronologically from the most recent to the oldest
 			repos.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
 
 			setUserData({
@@ -95,6 +97,7 @@ function App() {
 						<span>Repo</span>
 					</a>
 
+					{/* Theme toggle button */}
 					<button
 						title={
 							theme === "dark"
